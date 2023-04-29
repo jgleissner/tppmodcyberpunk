@@ -172,14 +172,22 @@ registerForEvent("onInit", function()
 						JB.moveHorizontal = true
 					end
 
-					if actionName == 'right_stick_y' then -- CONTROLLER
-						JB.yroll = actionValue
-						JB.moveHorizontal = true
-					end
-
-					if actionName == 'mouse_x' or actionName == 'right_stick_x' then
+					if actionName == 'mouse_x' then
 						JB.moveHorizontal = true
 						JB.xroll = (actionValue / 4) /  (30 / JB.horizontalSen)
+					end
+
+					if actionName == 'right_stick_y' then -- CONTROLLER
+						if GetPlayer():FindComponentByName('camera').headingLocked then
+							JB:Zoom(actionValue / 8)
+						else
+							JB.yroll = actionValue
+							JB.moveHorizontal = true
+						end
+					end
+
+					if actionName == 'right_stick_x' then
+						JB.xroll = actionValue
 					end
 
 					if actionName == 'world_map_menu_move_vertical' then
